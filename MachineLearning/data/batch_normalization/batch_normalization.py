@@ -75,6 +75,15 @@ class NN_PyTorch():
 		self.trainloader, self.testloader, self.classes = self._load_dataset(dataset)
 		self.net = NN_PyTorch_Net_00()
 		
+		self.device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
+		if (not(self.device == 'cpu')):
+			main_ver, minor_ver = torch.cuda.get_device_capability(self.device)
+			if ((main_ver > 4) or ((main_ver == 3) and (minor_ver >= 5))):
+				self.net.to(self.device)
+			else:
+				print('[WARN] GPU is too old')
+				self.device = 'cpu'
+		
 		return
 		
 	def _imshow(self, img):
@@ -117,7 +126,10 @@ class NN_PyTorch():
 		for epoch in range(2):
 			running_loss = 0.0
 			for i, data in enumerate(self.trainloader, 0):
-				inputs, labels = data
+				if (self.device == 'cpu'):
+					inputs, labels = data
+				else:
+					inputs, labels = data[0].to(self.device), data[1].to(self.device)
 				
 				optimizer.zero_grad()
 				
