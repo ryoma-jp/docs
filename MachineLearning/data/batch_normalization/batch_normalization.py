@@ -66,6 +66,16 @@ class NN_PyTorch_Net_00(nn.Module):
 		x = self.fc3(x)
 		return x
 	
+	def get_weights(self):
+		weights = OrderedDict()
+		weights['conv1'] = self.conv1.weight
+		weights['conv2'] = self.conv2.weight
+		weights['fc1'] = self.fc1.weight
+		weights['fc2'] = self.fc2.weight
+		weights['fc3'] = self.fc3.weight
+		
+		return weights
+	
 class NN_PyTorch():
 	DATASET_CIFAR10 = 'cifar10'
 	MODEL_DIR = 'pytorch_model'
@@ -150,7 +160,7 @@ class NN_PyTorch():
 		os.makedirs(model_dir, exist_ok=True)
 		torch.save(self.net.state_dict(), saved_model)
 		
-		return saved_model
+		return model_dir, model_name
 	
 	def test(self, model_path=None):
 		dataiter = iter(self.testloader)
@@ -176,7 +186,10 @@ class NN_PyTorch():
 				correct += (predicted == labels).sum().item()
 				
 		print('Accuracy of the network on the 10000 test images: %d %%' % (100 * correct / total))
-		
+	
+	def get_weights(self):
+		return self.net.get_weights()
+	
 def main():
 	# --- 引数処理 ---
 	args = ArgParser()
@@ -185,14 +198,30 @@ def main():
 	nn_pytorch = NN_PyTorch()
 	
 	if (args.with_train):
-		model = nn_pytorch.fit()
+		model_dir, model_name = nn_pytorch.fit()
+		model = os.path.join(model_dir, model_name)
 	else:
 		if (args.model_dir is not None):
+			model_dir = args.model_dir
+			model_name = args.model_name
 			model = os.path.join(args.model_dir, args.model_name)
 		else:
 			quit()
 		
 	nn_pytorch.test(model_path=model)
+	weights = nn_pytorch.get_weights()
+	
+	for key in weights.keys():
+		shape = weights[key].shape
+		if (len(shape) > 2):
+			weight_value = weights[key].detach().numpy().reshape(-1, shape[-1]*shape[-2])
+		else:
+			weight_value = weights[key].detach().numpy()
+		
+		pd.DataFrame(weight_value).to_csv(os.path.join(model_dir, 'weight_{}.csv'.format(key)), index=False, header=False)
+		plt.hist(weight_value, bins=32)
+		plt.savefig(os.path.join(model_dir, 'weight_{}_hist.png'.format(key)))
+		plt.close()
 
 	return
 
