@@ -76,6 +76,40 @@ class NN_PyTorch_Net_00(nn.Module):
 		
 		return weights
 	
+class NN_PyTorch_Net_01_BN(nn.Module):
+	
+	def __init__(self):
+		super(NN_PyTorch_Net_01_BN, self).__init__()
+		self.conv1 = nn.Conv2d(3, 6, 5)
+		self.conv1_bn = nn.BatchNorm2d(6)
+		self.pool = nn.MaxPool2d(2, 2)
+		self.conv2 = nn.Conv2d(6, 16, 5)
+		self.conv2_bn = nn.BatchNorm2d(16)
+		self.fc1 = nn.Linear(16 * 5 * 5, 120)
+		self.fc1_bn = nn.BatchNorm1d(120)
+		self.fc2 = nn.Linear(120, 84)
+		self.fc2_bn = nn.BatchNorm1d(84)
+		self.fc3 = nn.Linear(84, 10)
+
+	def forward(self, x):
+		x = self.pool(F.relu(self.conv1_bn(self.conv1(x))))
+		x = self.pool(F.relu(self.conv2_bn(self.conv2(x))))
+		x = x.view(-1, 16 * 5 * 5)
+		x = F.relu(self.fc1_bn(self.fc1(x)))
+		x = F.relu(self.fc2_bn(self.fc2(x)))
+		x = self.fc3(x)
+		return x
+	
+	def get_weights(self):
+		weights = OrderedDict()
+		weights['conv1'] = self.conv1.weight
+		weights['conv2'] = self.conv2.weight
+		weights['fc1'] = self.fc1.weight
+		weights['fc2'] = self.fc2.weight
+		weights['fc3'] = self.fc3.weight
+		
+		return weights
+	
 class NN_PyTorch():
 	DATASET_CIFAR10 = 'cifar10'
 	MODEL_DIR = 'pytorch_model'
@@ -84,6 +118,7 @@ class NN_PyTorch():
 	def __init__(self, dataset=DATASET_CIFAR10):
 		self.trainloader, self.testloader, self.classes = self._load_dataset(dataset)
 		self.net = NN_PyTorch_Net_00()
+#		self.net = NN_PyTorch_Net_01_BN()
 		
 		self.device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 		if (not(self.device == 'cpu')):
@@ -130,6 +165,11 @@ class NN_PyTorch():
 		return trainloader, testloader, classes
 	
 	def fit(self, model_dir=MODEL_DIR, model_name=MODEL_NAME):
+		if (model_dir is None):
+			model_dir = self.MODEL_DIR
+		if (model_name is None):
+			model_dir = self.MODEL_NAME
+		
 		criterion = nn.CrossEntropyLoss()
 		optimizer = optim.SGD(self.net.parameters(), lr=0.001, momentum=0.9)
 		
@@ -198,7 +238,7 @@ def main():
 	nn_pytorch = NN_PyTorch()
 	
 	if (args.with_train):
-		model_dir, model_name = nn_pytorch.fit()
+		model_dir, model_name = nn_pytorch.fit(model_dir=args.model_dir, model_name=args.model_name)
 		model = os.path.join(model_dir, model_name)
 	else:
 		if (args.model_dir is not None):
