@@ -1,11 +1,12 @@
 @echo off
 
 rem 学習込み
-python batch_normalization.py --with_train --model_dir .\pytorch_model --model_name NN_PyTorch.pth
-python batch_normalization.py --with_train --model_dir .\pytorch_model_bn --model_name NN_PyTorch.pth
+python batch_normalization.py --with_train --model_id 0 --model_dir .\pytorch_model --model_name NN_PyTorch.pth
+python batch_normalization.py --with_train --model_id 1 --model_dir .\pytorch_model_bn --model_name NN_PyTorch.pth
 
 rem 検証のみ
-rem python batch_normalization.py --model_dir .\pytorch_model --model_name NN_PyTorch.pth
+rem python batch_normalization.py --model_id 0 --model_dir .\pytorch_model --model_name NN_PyTorch.pth
+rem python batch_normalization.py --model_id 1 --model_dir .\pytorch_model_bn --model_name NN_PyTorch.pth
 
 rem ヒストグラム差分
 python hist_diff.py --csv1 pytorch_model\weight_conv1.csv --csv2 pytorch_model_bn\weight_conv1.csv --output hist_weight_conv1.png

@@ -39,6 +39,12 @@ def ArgParser():
 			help='学習済みモデル名')
 	parser.add_argument('--with_train', dest='with_train', action='store_true', required=False, \
 			help='学習時に設定')
+	parser.add_argument('--model_id', dest='model_id', type=int, default=0, required=False, \
+			help='モデルID\n'
+				 '  model_id  description\n'
+				 '  0         LeNet\n'
+				 '  1         LeNet with Batch Normalization')
+	
 	args = parser.parse_args()
 
 	return args
@@ -58,13 +64,13 @@ class NN_PyTorch_Net_00(nn.Module):
 		self.fc3 = nn.Linear(84, 10)
 
 	def forward(self, x):
-		x = self.pool(F.relu(self.conv1(x)))
-		x = self.pool(F.relu(self.conv2(x)))
-		x = x.view(-1, 16 * 5 * 5)
-		x = F.relu(self.fc1(x))
-		x = F.relu(self.fc2(x))
-		x = self.fc3(x)
-		return x
+		out = self.pool(F.relu(self.conv1(x)))
+		out = self.pool(F.relu(self.conv2(out)))
+		out = out.view(-1, 16 * 5 * 5)
+		out = F.relu(self.fc1(out))
+		out = F.relu(self.fc2(out))
+		out = self.fc3(out)
+		return out
 	
 	def get_weights(self):
 		weights = OrderedDict()
@@ -92,13 +98,13 @@ class NN_PyTorch_Net_01_BN(nn.Module):
 		self.fc3 = nn.Linear(84, 10)
 
 	def forward(self, x):
-		x = self.pool(F.relu(self.conv1_bn(self.conv1(x))))
-		x = self.pool(F.relu(self.conv2_bn(self.conv2(x))))
-		x = x.view(-1, 16 * 5 * 5)
-		x = F.relu(self.fc1_bn(self.fc1(x)))
-		x = F.relu(self.fc2_bn(self.fc2(x)))
-		x = self.fc3(x)
-		return x
+		out = self.pool(F.relu(self.conv1_bn(self.conv1(x))))
+		out = self.pool(F.relu(self.conv2_bn(self.conv2(out))))
+		out = out.view(-1, 16 * 5 * 5)
+		out = F.relu(self.fc1_bn(self.fc1(out)))
+		out = F.relu(self.fc2_bn(self.fc2(out)))
+		out = self.fc3(out)
+		return out
 	
 	def get_weights(self):
 		weights = OrderedDict()
@@ -115,11 +121,22 @@ class NN_PyTorch():
 	MODEL_DIR = 'pytorch_model'
 	MODEL_NAME = 'NN_PyTorch.pth'
 	
-	def __init__(self, dataset=DATASET_CIFAR10):
-		self.trainloader, self.testloader, self.classes = self._load_dataset(dataset)
-		self.net = NN_PyTorch_Net_00()
-#		self.net = NN_PyTorch_Net_01_BN()
+	def __init__(self, dataset=DATASET_CIFAR10, model_id=0):
+		# --- ハイパーパラメータ ---
+		self.batch_size = 32
+		self.n_epoch = 100
 		
+		# --- データロード ---
+		self.trainloader, self.testloader, self.classes = self._load_dataset(dataset)
+		
+		# --- モデル構築 ---
+		print('[INFO] model_id={}'.format(model_id))
+		if (model_id == 0):
+			self.net = NN_PyTorch_Net_00()
+		else:
+			self.net = NN_PyTorch_Net_01_BN()
+		
+		# --- GPU設定 ---
 		self.device = torch.device('cuda:0' if torch.cuda.is_available() else 'cpu')
 		if (not(self.device == 'cpu')):
 			main_ver, minor_ver = torch.cuda.get_device_capability(self.device)
@@ -145,12 +162,12 @@ class NN_PyTorch():
 			
 			trainset = torchvision.datasets.CIFAR10(root='data_cifar10', train=True,
 							download=True, transform=transform)
-			trainloader = torch.utils.data.DataLoader(trainset, batch_size=4,
+			trainloader = torch.utils.data.DataLoader(trainset, batch_size=self.batch_size,
 							shuffle=True, num_workers=2)
 			
 			testset = torchvision.datasets.CIFAR10(root='data_cifar10', train=False,
 							download=True, transform=transform)
-			testloader = torch.utils.data.DataLoader(testset, batch_size=4,
+			testloader = torch.utils.data.DataLoader(testset, batch_size=100,
 							shuffle=False, num_workers=2)
 			
 			classes = ('plane', 'car', 'bird', 'cat',
@@ -164,6 +181,21 @@ class NN_PyTorch():
 		
 		return trainloader, testloader, classes
 	
+	def _calc_accuracy(self, dataloader):
+		correct = 0
+		total = 0
+		with torch.no_grad():
+			for data in dataloader:
+				images, labels = data
+				outputs = self.net(images)
+				_, predicted = torch.max(outputs.data, 1)
+				total += labels.size(0)
+				correct += (predicted == labels).sum().item()
+				
+		accuracy = 100 * correct / total
+		
+		return accuracy
+	
 	def fit(self, model_dir=MODEL_DIR, model_name=MODEL_NAME):
 		if (model_dir is None):
 			model_dir = self.MODEL_DIR
@@ -171,9 +203,13 @@ class NN_PyTorch():
 			model_dir = self.MODEL_NAME
 		
 		criterion = nn.CrossEntropyLoss()
-		optimizer = optim.SGD(self.net.parameters(), lr=0.001, momentum=0.9)
+		optimizer = optim.SGD(self.net.parameters(), lr=0.01, momentum=0.9, weight_decay=5e-4)
 		
-		for epoch in range(2):
+		log_period = int(len(self.trainloader.dataset) / self.batch_size / 5)
+		loss_log = []
+		loss_log_header = ['epoch', 'iter', 'loss', 'train_acc', 'test_acc']
+		print('epoch, iter, loss, train_acc, test_acc')
+		for epoch in range(self.n_epoch):
 			running_loss = 0.0
 			for i, data in enumerate(self.trainloader, 0):
 				if (self.device == 'cpu'):
@@ -189,9 +225,12 @@ class NN_PyTorch():
 				optimizer.step()
 				
 				running_loss += loss.item()
-				if (i % 2000 == 1999):
-					print('[%d, %5d] loss: %.3f' %
-						(epoch + 1, i + 1, running_loss / 2000))
+				if (i % log_period == log_period-1):
+					train_acc = self._calc_accuracy(self.trainloader)
+					test_acc = self._calc_accuracy(self.testloader)
+					print('%3d, %5d, %.3f, %.2f, %.2f' %
+						(epoch + 1, int(i / log_period) + 1, running_loss / log_period, train_acc, test_acc))
+					loss_log.append([epoch + 1, int(i / log_period) + 1, running_loss / log_period, train_acc, test_acc])
 					running_loss = 0.0
 		
 		print('Finished Training')
@@ -199,6 +238,8 @@ class NN_PyTorch():
 		saved_model = os.path.join(model_dir, model_name)
 		os.makedirs(model_dir, exist_ok=True)
 		torch.save(self.net.state_dict(), saved_model)
+		
+		pd.DataFrame(loss_log).to_csv(os.path.join(model_dir, 'loss_log.csv'), header=loss_log_header, index=None)
 		
 		return model_dir, model_name
 	
@@ -215,17 +256,10 @@ class NN_PyTorch():
 #		_, predicted = torch.max(outputs, 1)
 #		print('Predicted: ', ' '.join('%5s' % self.classes[predicted[j]] for j in range(4)))
 		
-		correct = 0
-		total = 0
-		with torch.no_grad():
-			for data in self.testloader:
-				images, labels = data
-				outputs = self.net(images)
-				_, predicted = torch.max(outputs.data, 1)
-				total += labels.size(0)
-				correct += (predicted == labels).sum().item()
-				
-		print('Accuracy of the network on the 10000 test images: %d %%' % (100 * correct / total))
+		accuracy = self._calc_accuracy(self.testloader)
+		print('Accuracy of the network on the 10000 test images: %d %%' % (accuracy))
+		
+		return accuracy
 	
 	def get_weights(self):
 		return self.net.get_weights()
@@ -235,7 +269,7 @@ def main():
 	args = ArgParser()
 	
 	# --- 学習 ---
-	nn_pytorch = NN_PyTorch()
+	nn_pytorch = NN_PyTorch(model_id=args.model_id)
 	
 	if (args.with_train):
 		model_dir, model_name = nn_pytorch.fit(model_dir=args.model_dir, model_name=args.model_name)
