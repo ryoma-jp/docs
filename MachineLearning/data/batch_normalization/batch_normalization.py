@@ -44,6 +44,8 @@ def ArgParser():
 				 '  model_id  description\n'
 				 '  0         LeNet\n'
 				 '  1         LeNet with Batch Normalization')
+	parser.add_argument('--enable_augmentation', dest='enable_augmentation', action='store_true', required=False, \
+			help='Data Augmentationを有効にする')
 	
 	args = parser.parse_args()
 
@@ -121,13 +123,13 @@ class NN_PyTorch():
 	MODEL_DIR = 'pytorch_model'
 	MODEL_NAME = 'NN_PyTorch.pth'
 	
-	def __init__(self, dataset=DATASET_CIFAR10, model_id=0):
+	def __init__(self, dataset=DATASET_CIFAR10, model_id=0, enable_augmentation=False):
 		# --- ハイパーパラメータ ---
 		self.batch_size = 32
 		self.n_epoch = 100
 		
 		# --- データロード ---
-		self.trainloader, self.testloader, self.classes = self._load_dataset(dataset)
+		self.trainloader, self.testloader, self.classes = self._load_dataset(dataset, enable_augmentation=enable_augmentation)
 		
 		# --- モデル構築 ---
 		print('[INFO] model_id={}'.format(model_id))
@@ -154,11 +156,22 @@ class NN_PyTorch():
 		plt.imshow(np.transpose(npimg, (1, 2, 0)))
 		plt.show()
 	
-	def _load_dataset(self, dataset):
+	def _load_dataset(self, dataset, enable_augmentation=False):
 		if (dataset == self.DATASET_CIFAR10):
-			transform = transforms.Compose([
-				transforms.ToTensor(),
-				transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
+			if (enable_augmentation):
+				mean = (0.49139968, 0.48215841, 0.44653091)
+				std = (0.24703223, 0.24348513, 0.26158784)
+			
+				transform = transforms.Compose([
+					transforms.RandomCrop(32, padding=4),
+					transforms.RandomHorizontalFlip(),
+					transforms.ToTensor(),
+					transforms.Normalize(mean, std)])
+			
+			else:
+				transform = transforms.Compose([
+					transforms.ToTensor(),
+					transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
 			
 			trainset = torchvision.datasets.CIFAR10(root='data_cifar10', train=True,
 							download=True, transform=transform)
@@ -269,7 +282,7 @@ def main():
 	args = ArgParser()
 	
 	# --- 学習 ---
-	nn_pytorch = NN_PyTorch(model_id=args.model_id)
+	nn_pytorch = NN_PyTorch(model_id=args.model_id, enable_augmentation=args.enable_augmentation)
 	
 	if (args.with_train):
 		model_dir, model_name = nn_pytorch.fit(model_dir=args.model_dir, model_name=args.model_name)
