@@ -126,6 +126,7 @@ class NN_PyTorch():
 	def __init__(self, dataset=DATASET_CIFAR10, model_id=0, enable_augmentation=False):
 		# --- ハイパーパラメータ ---
 		self.batch_size = 32
+#		self.batch_size = 1562		# 50000 / 32
 		self.n_epoch = 100
 		
 		# --- データロード ---
@@ -159,29 +160,42 @@ class NN_PyTorch():
 	def _load_dataset(self, dataset, enable_augmentation=False):
 		if (dataset == self.DATASET_CIFAR10):
 			if (enable_augmentation):
+				print('[INFO] enable data augmentation')
 				mean = (0.49139968, 0.48215841, 0.44653091)
 				std = (0.24703223, 0.24348513, 0.26158784)
-			
-				transform = transforms.Compose([
+				
+				train_transform = transforms.Compose([
 					transforms.RandomCrop(32, padding=4),
 					transforms.RandomHorizontalFlip(),
 					transforms.ToTensor(),
 					transforms.Normalize(mean, std)])
-			
+				
+				test_transform = transforms.Compose([
+					transforms.ToTensor(),
+					transforms.Normalize(mean, std)])
+					
 			else:
-				transform = transforms.Compose([
+				print('[INFO] disable data augmentation')
+				train_transform = transforms.Compose([
 					transforms.ToTensor(),
 					transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))])
+				test_transform = train_transform
 			
 			trainset = torchvision.datasets.CIFAR10(root='data_cifar10', train=True,
-							download=True, transform=transform)
+							download=True, transform=train_transform)
 			trainloader = torch.utils.data.DataLoader(trainset, batch_size=self.batch_size,
 							shuffle=True, num_workers=2)
+#			print('self.batch_size=', self.batch_size)
+#			print('len(trainloader.dataset)=',len(trainloader.dataset))
+#			print('len(trainloader)=',len(trainloader))
 			
 			testset = torchvision.datasets.CIFAR10(root='data_cifar10', train=False,
-							download=True, transform=transform)
+							download=True, transform=test_transform)
 			testloader = torch.utils.data.DataLoader(testset, batch_size=100,
 							shuffle=False, num_workers=2)
+#			print('len(testloader.dataset)=',len(testloader.dataset))
+#			print('len(testloader)=',len(testloader))
+#			quit()
 			
 			classes = ('plane', 'car', 'bird', 'cat',
 						'deer', 'dog', 'frog', 'horse', 'ship', 'truck')

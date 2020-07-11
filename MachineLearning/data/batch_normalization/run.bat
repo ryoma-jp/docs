@@ -1,8 +1,8 @@
 @echo off
 
 rem äwèK
-python batch_normalization.py --with_train --model_id 0 --model_dir .\pytorch_model --model_name NN_PyTorch.pth
-python batch_normalization.py --with_train --model_id 1 --model_dir .\pytorch_model_bn --model_name NN_PyTorch.pth
+rem python batch_normalization.py --with_train --model_id 0 --model_dir .\pytorch_model --model_name NN_PyTorch.pth
+rem python batch_normalization.py --with_train --model_id 1 --model_dir .\pytorch_model_bn --model_name NN_PyTorch.pth
 python batch_normalization.py --with_train --model_id 0 --model_dir .\pytorch_model_da --model_name NN_PyTorch.pth --enable_augmentation
 python batch_normalization.py --with_train --model_id 1 --model_dir .\pytorch_model_bn_da --model_name NN_PyTorch.pth --enable_augmentation
 
