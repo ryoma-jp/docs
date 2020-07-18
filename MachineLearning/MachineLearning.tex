@@ -53,11 +53,11 @@ AIは図\ref{ai_hist_jpg}に示すように，第一次ブームから第三次�
 	\end{center}
 \end{figure}
 
-Deep Learningが最初に脚光を浴びたのは，画像認識コンテスト ILSVRC(IMAGENET Large Scale Visual Recognition Challenge)で，2012年に2011年の優勝モデルのエラー率を約10\%下げて優勝した \cite{dl_hist4}．以降，Deep Learningを活用したアルゴリズムが台頭し，2015年には，人間のエラー率5.1\% \cite{arxiv_ilsvrc}を下回るアルゴリズムが登場した\footnote{図\ref{ilsvrc_winner_2010-2016}の引用元のAINOWが何を参照して人間のエラー率を4\%と定義したのかは不明} (図\ref{ilsvrc_winner_2010-2016}, 図\ref{ilsvrc_human_classification_results})．
+Deep Learningが最初に脚光を浴びたのは，画像認識コンテスト ILSVRC(IMAGENET Large Scale Visual Recognition Challenge) \cite{overview_ilsvrc}で，2012年に2011年の優勝モデルのエラー率を約10\%下げて優勝した \cite{dl_hist4}．以降，Deep Learningを活用したアルゴリズムが台頭し，2015年には，人間のエラー率5.1\% \cite{arxiv_ilsvrc}を下回るアルゴリズムが登場した\footnote{図\ref{ilsvrc_winner_2010-2016}の引用元のAINOWが何を参照して人間のエラー率を4\%と定義したのかは不明} (図\ref{ilsvrc_winner_2010-2016}, 図\ref{ilsvrc_human_classification_results})．
 
 \begin{figure} [H]
 	\begin{center}
-		\includegraphics[clip, height=8cm, bb=0 0 1976 1112]{data/figure/ilsvrc_winner_2010-2016.png}
+		\includegraphics[clip, height=6cm, bb=0 0 1976 1112]{data/figure/ilsvrc_winner_2010-2016.png}
 		\caption{ILSVRCの歴代優勝モデル(2010年～2016年)}
 		\label{ilsvrc_winner_2010-2016}
 	\end{center}
@@ -65,11 +65,11 @@ Deep Learningが最初に脚光を浴びたのは，画像認識コンテスト 
 
 \begin{figure} [H]
 	\begin{center}
-		\includegraphics[clip, height=8cm, bb=-30 0 568 278]{data/figure/ilsvrc_human_classification_results.png}
+		\includegraphics[clip, height=6cm, bb=-120 0 568 278]{data/figure/ilsvrc_human_classification_results.png}
 		\caption{人間の画像認識エラー率}
 		\label{ilsvrc_human_classification_results}
 	\end{center}
-\end{figure}
+\end{figure}文字認識
 
 2012年以降のILSVRCの優勝モデルは，図\ref{ilsvrc_winner_2010-2017_with_algo}に示す通り \cite{dl_hist5} \footnote{図中，2014年の優勝モデルはGooLeNetとなっているが，正しくはGoogLeNet}．
 
@@ -83,9 +83,57 @@ Deep Learningが最初に脚光を浴びたのは，画像認識コンテスト 
 
 \subsubsection{LeNet}
 
+LeNetはDeep Learningの根幹ともいえるCNNアーキテクチャで，図\ref{arch_lenet}に示す構造を持つ \cite{arxiv_lenet} \cite{arch_lenet}．誤差逆伝播法による学習で，MNIST\footnote{THE MNIST DATABASE of handwritten digits, \url{http://yann.lecun.com/exdb/mnist/}}などの文字認識で高精度を実現した．
+
+\begin{figure} [H]
+	\begin{center}
+		\includegraphics[clip, height=5cm, bb=-30 0 711 200]{data/figure/arch_lenet.png}
+		\caption{LeNetアーキテクチャ}
+		\label{arch_lenet}
+	\end{center}
+\end{figure}
+
 \subsubsection{AlexNet}
 
-\subsubsection{XFNet}
+2012年のILSVRC優勝モデルで，図\ref{arch_alexnet}に示す構造を持つ \cite{paper_alexnet}．下記特徴を持つ．
+
+\begin{itemize}
+	\item Rectified Linear Units(ReLU)による非線形変換導入で勾配消失問題の解決と学習の高速化．
+	\item Local Response Normalization (LRN)による正規化で学習の安定化と高速化．当時，Local Constrast Normalization(LCN)と比較してより適切な正規化法と主張していたが，後のVGG Netで効果が認められなかったことや，Batch Normalizationの登場により近年のモデルでは利用されていない．
+	\item Overlapping poolingによるプーリング層でのオーバーラップにより過学習を提言．
+	\item 全結合層のDropoutによる学習時のニューロン無効化によりモデルの汎化性能を向上．
+	\item Momentum SGDによる最適化で学習を安定化．
+	\item 重み減衰による正則化で過学習を抑制．
+	\item 学習率減衰で学習の収束度を向上．
+\end{itemize}
+
+\begin{figure} [H]
+	\begin{center}
+		\includegraphics[clip, height=6cm, bb=-20 0 675 219]{data/figure/arch_alexnet.png}
+		\caption{AlexNetアーキテクチャ}
+		\label{arch_alexnet}
+	\end{center}
+\end{figure}
+
+
+\subsubsection{ZFNet}
+
+2013年のILSVRC優勝モデルで図\ref{arch_zfnet}に示す構造を持つ \cite{arxiv_zfnet}．下記特徴を持つ．
+
+\begin{itemize}
+	\item Alex Netに対して，第一層目のカーネルサイズを11x11から7x7に変更することで，高周波及び低周波の情報量を抑制
+	\item Alex Netに対して，第一層目のストライドを4から2に変更することで，第二層目に生じるエイリアシングを削減
+\end{itemize}
+
+\begin{figure} [H]
+	\begin{center}
+		\includegraphics[clip, height=6cm, bb=-20 0 675 219]{data/figure/arch_zfnet.png}
+		\caption{ZF Netアーキテクチャ}
+		\label{arch_zfnet}
+	\end{center}
+\end{figure}
+
+
 
 \subsubsection{GoogLeNet}
 
@@ -165,8 +213,14 @@ You Only Look Once(YOLO)は物体検出手法の一つで，「検出」と「�
 	\bibitem{dl_hist2} 「Deep Learning」の進化でAIを活用した新しいビジネスが生まれる, \url{https://www.nttcom.co.jp/comware_plus/img/201705_DeepLearning.pdf}
 	\bibitem{dl_hist3} 人工知能は人間を超えるか - ディープラーニングの先にあるもの, \url{https://www.ipa.go.jp/files/000050258.pdf}
 	\bibitem{dl_hist4} 初心者でもわかるディープラーニング ー 基礎知識からAIとの違い、導入プロセスまで細かく解説, \url{https://ainow.ai/2019/08/06/174245/}
+	\bibitem{dl_hist5} [サーベイ論文] 畳み込みニューラルネットワークの研究動向, \url{http://mprg.jp/data/MPRG/F_group/F188_uchida2017.pdf}
+	\bibitem{overview_ilsvrc} IMAGENET Large Scale Visual Recognition Challenge (ILSVRC) 2017 Overview, \url{http://image-net.org/challenges/talks_2017/ILSVRC2017_overview.pdf}
 	\bibitem{arxiv_ilsvrc} ImageNet Large Scale Visual Recognition Challenge, \url{https://arxiv.org/abs/1409.0575}
 	\bibitem{dl_hist5} 畳み込みニューラルネットワークの高精度化と高速化, \url{https://www.slideshare.net/ren4yu/ss-145689425}
+	\bibitem{arxiv_lenet} GradientBased Learning Applied to Document Recognition, \url{http://vision.stanford.edu/cs598_spring07/papers/Lecun98.pdf}
+	\bibitem{arch_lenet} Understanding and Implementing LeNet-5 CNN Architecture (Deep Learning), \url{https://towardsdatascience.com/understanding-and-implementing-lenet-5-cnn-architecture-deep-learning-a2d531ebc342}
+	\bibitem{paper_alexnet} ImageNet Classification with Deep Convolutional Neural Networks, \url{https://papers.nips.cc/paper/4824-imagenet-classification-with-deep-convolutional-neural-networks.pdf}
+	\bibitem{arxiv_zfnet} Visualizing and Understanding Convolutional Networks, \url{https://arxiv.org/abs/1311.2901}
 	\bibitem{cov_shift} 共変量シフト下での教師付き学習, \url{https://www.jstage.jst.go.jp/article/jnns/13/3/13_3_111/_article/-char/ja/}
 	\bibitem{bn_abs} Batch Normalization：ニューラルネットワークの学習を加速させる汎用的で強力な手法, \url{https://deepage.net/deep_learning/2016/10/26/batch_normalization.html}
 	\bibitem{bn_google} Batch Normalization: Accelerating Deep Network Training by Reducing Internal Covariate Shift, \url{https://arxiv.org/abs/1502.03167}
