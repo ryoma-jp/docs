@@ -59,3 +59,4 @@
 * [【論文】"Attention is all you need"の解説](https://www.acceluniverse.com/blog/developers/2019/08/attention.html)
 * [DALL-E: Creating Images from Text](https://openai.com/blog/dall-e/)
 * [Recurrent Neural Networks](https://www.cs.ubc.ca/labs/lci/mlrg/slides/rnn.pdf)
+* [画像分類や物体検出の学習に必要なモデル一覧](https://tomomai.com/python-model/)
