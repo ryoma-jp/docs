@@ -13,7 +13,7 @@
 ||ロジスティック回帰| :heavy_check_mark: |||| :heavy_check_mark: |||
 |1963|サポートベクターマシン(SVM)| :heavy_check_mark: |||| :heavy_check_mark: |||
 |1980|「強いAI・弱いAI」の概念の登場||||||||
-|1986|誤差逆伝播||||||| [Backpropagation Through Time](http://www.cs.cmu.edu/~bhiksha/courses/deeplearning/Fall.2016/pdfs/Werbos.backprop.pdf) |
+|1986|RNN|||| :heavy_check_mark: | :heavy_check_mark: || [Backpropagation Through Time](http://www.cs.cmu.edu/~bhiksha/courses/deeplearning/Fall.2016/pdfs/Werbos.backprop.pdf) |
 |1991|Python||||||||
 |1995|LSTM|||| :heavy_check_mark: | :heavy_check_mark: |||
 |1998|LeNet| :heavy_check_mark: |||||||
@@ -22,12 +22,20 @@
 |2014|VGG| :heavy_check_mark: |||||||
 ||GoogLeNet| :heavy_check_mark: |||||||
 ||GAN|||||| :heavy_check_mark: ||
+||GRU|||| :heavy_check_mark: | :heavy_check_mark: || [Empirical Evaluation of Gated Recurrent Neural Networks on Sequence Modeling](https://arxiv.org/abs/1412.3555) |
+||Seq2Seq|||| :heavy_check_mark: | :heavy_check_mark: || [Sequence to Sequence Learning with Neural Networks](https://arxiv.org/abs/1409.3215) |
 |2015|ResNet| :heavy_check_mark: |||||||
+||Attention|||| :heavy_check_mark: | :heavy_check_mark: || [Effective Approaches to Attention-based Neural Machine Translation](https://arxiv.org/pdf/1508.04025.pdf) |
 |2016|SqueezeNet| :heavy_check_mark: |||||| [SQUEEZENET](https://arxiv.org/pdf/1602.07360.pdf) |
 |2017|MobileNet(v1)| :heavy_check_mark: |||||| [MobileNets](https://arxiv.org/pdf/1704.04861.pdf) |
+||Transformer|||| :heavy_check_mark: | :heavy_check_mark: || [Attention Is All You Need](https://papers.nips.cc/paper/2017/file/3f5ee243547dee91fbd053c1c4a845aa-Paper.pdf) |
 |2018|MobileNet(v2)| :heavy_check_mark: |||||| [MobileNetV2](https://arxiv.org/pdf/1801.04381v3.pdf) |
-||BERT|||| :heavy_check_mark: ||||
+||BERT|||| :heavy_check_mark: ||| [BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding](https://arxiv.org/abs/1810.04805) |
 |2019|MobileNet(v3)| :heavy_check_mark: |||||| [Searching for MobileNetV3](https://arxiv.org/pdf/1905.02244.pdf) |
+||GPT-2|||| :heavy_check_mark: ||| [Hello, It's GPT-2 -- How Can I Help You? Towards the Use of Pretrained Language Models for Task-Oriented Dialogue Systems](https://arxiv.org/abs/1907.05774) |
+||T5|||| :heavy_check_mark: ||| [Exploring the Limits of Transfer Learning with a Unified Text-to-Text Transformer](https://arxiv.org/abs/1910.10683) |
+|2020|GPT-3|||| :heavy_check_mark: ||| [Language Models are Few-Shot Learners](https://arxiv.org/abs/2005.14165) |
+|2021|DALL-E|||| :heavy_check_mark: || :heavy_check_mark: | [Zero-Shot Text-to-Image Generation](https://arxiv.org/abs/2102.12092) |
 
 
 # 参考
@@ -47,3 +55,7 @@
 * [ディープラーニングは、時系列予測でも最強なのか？　～RNNと従来手法との対比から見える使いどころ～](https://www.sas.com/content/dam/SAS/documents/marketing-whitepapers-ebooks/sas-whitepapers/ja/viya-recurrent-neural-network.pdf)
 * [わかるLSTM ～ 最近の動向と共に](https://qiita.com/t_Signull/items/21b82be280b46f467d1b)
 * [複数入力を用いたRecurrent Neural Networkに基づく時系列予測](https://www.ieice.org/publications/conference-FIT-DVDs/FIT2019/data/pdf/CF-001.pdf)
+* [自然言語処理の深層学習モデル](https://note.com/npaka/n/ne39e1f8d2d89)
+* [【論文】"Attention is all you need"の解説](https://www.acceluniverse.com/blog/developers/2019/08/attention.html)
+* [DALL-E: Creating Images from Text](https://openai.com/blog/dall-e/)
+* [Recurrent Neural Networks](https://www.cs.ubc.ca/labs/lci/mlrg/slides/rnn.pdf)
