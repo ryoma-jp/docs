@@ -10,19 +10,19 @@
 |年|技術|IC|OD|SS|NLP|TS|Gen|関連情報|
 |---|---|---|---|---|---|---|---|---|
 |1958|パーセプトロン| :heavy_check_mark: |||| :heavy_check_mark: |||
-||ロジスティック回帰||||||||
-|1963|サポートベクターマシン(SVM)||||||||
+||ロジスティック回帰| :heavy_check_mark: |||| :heavy_check_mark: |||
+|1963|サポートベクターマシン(SVM)| :heavy_check_mark: |||| :heavy_check_mark: |||
 |1980|「強いAI・弱いAI」の概念の登場||||||||
 |1986|誤差逆伝播||||||||
 |1991|Python||||||||
-|1995|LSTM||||||||
-|1998|LeNet||||||||
-|2006|積層オートエンコーダ||||||||
-|2012|AlexNet||||||||
-|2014|VGG||||||||
-||GAN||||||||
-|2015|ResNet||||||||
-|2018|BERT||||||||
+|1995|LSTM|||| :heavy_check_mark: | :heavy_check_mark: |||
+|1998|LeNet| :heavy_check_mark: |||||||
+|2006|積層オートエンコーダ|||||| :heavy_check_mark: ||
+|2012|AlexNet| :heavy_check_mark: |||||||
+|2014|VGG| :heavy_check_mark: |||||||
+||GAN|||||| :heavy_check_mark: ||
+|2015|ResNet| :heavy_check_mark: |||||||
+|2018|BERT|||| :heavy_check_mark: ||||
 
 
 # 参考
