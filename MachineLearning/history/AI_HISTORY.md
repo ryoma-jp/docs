@@ -9,22 +9,22 @@
 
 |年|技術|IC|OD|SS|NLP|TS|Gen|関連情報|
 |---|---|---|---|---|---|---|---|---|
-|1958|パーセプトロン| :heavy_check_mark: |||| :heavy_check_mark: |||
+|1958|パーセプトロン| :heavy_check_mark: |||| :heavy_check_mark: || [THE PERCEPTRON: A PROBABILISTIC MODEL FOR INFORMATION STORAGE AND ORGANIZATION IN THE BRAIN](https://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.335.3398&rep=rep1&type=pdf)|
 ||ロジスティック回帰| :heavy_check_mark: |||| :heavy_check_mark: |||
 |1963|サポートベクターマシン(SVM)| :heavy_check_mark: |||| :heavy_check_mark: |||
 |1980|「強いAI・弱いAI」の概念の登場||||||||
 |1986|RNN|||| :heavy_check_mark: | :heavy_check_mark: || [Backpropagation Through Time](http://www.cs.cmu.edu/~bhiksha/courses/deeplearning/Fall.2016/pdfs/Werbos.backprop.pdf) |
 |1991|Python||||||||
-|1995|LSTM|||| :heavy_check_mark: | :heavy_check_mark: |||
-|1998|LeNet| :heavy_check_mark: |||||||
+|1995|LSTM|||| :heavy_check_mark: | :heavy_check_mark: || [LSTM](https://arxiv.org/pdf/1503.04069.pdf)|
+|1998|LeNet| :heavy_check_mark: |||||| [Gradient-Based Learning Applied to Document Recognition](http://yann.lecun.com/exdb/publis/pdf/lecun-98.pdf) |
 |2006|積層オートエンコーダ|||||| :heavy_check_mark: ||
-|2012|AlexNet| :heavy_check_mark: |||||||
-|2014|VGG| :heavy_check_mark: |||||||
-||GoogLeNet| :heavy_check_mark: |||||||
-||GAN|||||| :heavy_check_mark: ||
+|2012|AlexNet| :heavy_check_mark: |||||| [ImageNet Classification with Deep Convolutional Neural Networks](https://papers.nips.cc/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper.pdf) |
+|2014|VGG| :heavy_check_mark: |||||| [Very Deep Convolutional Networks for Large-Scale Image Recognition](https://arxiv.org/abs/1409.1556) |
+||GoogLeNet| :heavy_check_mark: |||||| [Going Deeper with Convolutions](https://arxiv.org/abs/1409.4842) |
+||GAN|||||| :heavy_check_mark: | [Generative Adversarial Networks](https://arxiv.org/abs/1406.2661) |
 ||GRU|||| :heavy_check_mark: | :heavy_check_mark: || [Empirical Evaluation of Gated Recurrent Neural Networks on Sequence Modeling](https://arxiv.org/abs/1412.3555) |
 ||Seq2Seq|||| :heavy_check_mark: | :heavy_check_mark: || [Sequence to Sequence Learning with Neural Networks](https://arxiv.org/abs/1409.3215) |
-|2015|ResNet| :heavy_check_mark: |||||||
+|2015|ResNet| :heavy_check_mark: |||||| [Deep Residual Learning for Image Recognition](https://arxiv.org/abs/1512.03385) |
 ||Attention|||| :heavy_check_mark: | :heavy_check_mark: || [Effective Approaches to Attention-based Neural Machine Translation](https://arxiv.org/pdf/1508.04025.pdf) |
 |2016|SqueezeNet| :heavy_check_mark: |||||| [SQUEEZENET](https://arxiv.org/pdf/1602.07360.pdf) |
 |2017|MobileNet(v1)| :heavy_check_mark: |||||| [MobileNets](https://arxiv.org/pdf/1704.04861.pdf) |
