@@ -34,8 +34,10 @@
 |2019|MobileNet(v3)| :heavy_check_mark: |||||| [Searching for MobileNetV3](https://arxiv.org/pdf/1905.02244.pdf) |
 ||GPT-2|||| :heavy_check_mark: ||| [Hello, It's GPT-2 -- How Can I Help You? Towards the Use of Pretrained Language Models for Task-Oriented Dialogue Systems](https://arxiv.org/abs/1907.05774) |
 ||T5|||| :heavy_check_mark: ||| [Exploring the Limits of Transfer Learning with a Unified Text-to-Text Transformer](https://arxiv.org/abs/1910.10683) |
+||EfficientNet| :heavy_check_mark: |||||| [EfficientNet: Rethinking Model Scaling for Convolutional Neural Networks](https://arxiv.org/abs/1905.11946) |
 |2020|GPT-3|||| :heavy_check_mark: ||| [Language Models are Few-Shot Learners](https://arxiv.org/abs/2005.14165) |
 |2021|DALL-E|||| :heavy_check_mark: || :heavy_check_mark: | [Zero-Shot Text-to-Image Generation](https://arxiv.org/abs/2102.12092) |
+||EfficientNetV2| :heavy_check_mark: |||||| [EfficientNetV2: Smaller Models and Faster Training](https://arxiv.org/abs/2104.00298) |
 
 
 # 参考
@@ -60,3 +62,5 @@
 * [DALL-E: Creating Images from Text](https://openai.com/blog/dall-e/)
 * [Recurrent Neural Networks](https://www.cs.ubc.ca/labs/lci/mlrg/slides/rnn.pdf)
 * [画像分類や物体検出の学習に必要なモデル一覧](https://tomomai.com/python-model/)
+* [2021年最強になるか！？最新の画像認識モデルEfficientNetV2を解説](https://qiita.com/omiita/items/1d96eae2b15e49235110)
+* [[DL輪読会]EfficientNet: Rethinking Model Scaling for Convolutional Neural Networks](https://www.slideshare.net/DeepLearningJP2016/dlefficientnet-rethinking-model-scaling-for-convolutional-neural-networks)
