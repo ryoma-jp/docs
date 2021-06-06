@@ -32,6 +32,7 @@
 ||Fast R-CNN|| :heavy_check_mark: | :heavy_check_mark: |||| [Fast R-CNN](https://arxiv.org/abs/1504.08083) |
 ||Faster R-CNN|| :heavy_check_mark: | :heavy_check_mark: |||| [Faster R-CNN: Towards Real-Time Object Detection with Region Proposal Networks](https://arxiv.org/abs/1506.01497) |
 ||YOLO|| :heavy_check_mark: ||||| [You Only Look Once: Unified, Real-Time Object Detection](https://arxiv.org/abs/1506.02640) |
+||SSD|| :heavy_check_mark: ||||| [SSD: Single Shot MultiBox Detector](https://arxiv.org/abs/1512.02325) |
 |2016|SqueezeNet| :heavy_check_mark: |||||| [SQUEEZENET](https://arxiv.org/pdf/1602.07360.pdf) |
 ||R-FCN|| :heavy_check_mark: ||||| [R-FCN: Object Detection via Region-based Fully Convolutional Networks](https://arxiv.org/abs/1605.06409) |
 ||YOLO9000(YOLOv2)|| :heavy_check_mark: ||||| [YOLO9000: Better, Faster, Stronger](https://arxiv.org/abs/1612.08242) |
@@ -78,3 +79,4 @@
 * [最新のRegion CNN(R-CNN)を用いた物体検出入門 ~物体検出とは? R-CNN, Fast R-CNN, Faster R-CNN, Mask R-CNN~](https://qiita.com/arutema47/items/8ff629a1516f7fd485f9)
 * [What do we learn from region based object detectors (Faster R-CNN, R-FCN, FPN)?](https://jonathan-hui.medium.com/what-do-we-learn-from-region-based-object-detectors-faster-r-cnn-r-fcn-fpn-7e354377a7c9)
 * [【物体検出手法の歴史 : YOLOの紹介】](https://qiita.com/cv_carnavi/items/68dcda71e90321574a2b)
+* [SSD:Single Shot Multibox Detector](https://qiita.com/de0ta/items/1ae60878c0e177fc7a3a)
