@@ -42,15 +42,21 @@
 |2018|MobileNet(v2)| :heavy_check_mark: |||||| [MobileNetV2](https://arxiv.org/pdf/1801.04381v3.pdf) |
 ||BERT|||| :heavy_check_mark: ||| [BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding](https://arxiv.org/abs/1810.04805) |
 ||YOLOv3|| :heavy_check_mark: ||||| [YOLOv3: An Incremental Improvement](https://arxiv.org/abs/1804.02767) |
+||M2Det|| :heavy_check_mark: ||||| [A Single-Shot Object Detector based on Multi-Level Feature Pyramid Network](https://arxiv.org/abs/1811.04533) |
 |2019|MobileNet(v3)| :heavy_check_mark: |||||| [Searching for MobileNetV3](https://arxiv.org/pdf/1905.02244.pdf) |
 ||GPT-2|||| :heavy_check_mark: ||| [Hello, It's GPT-2 -- How Can I Help You? Towards the Use of Pretrained Language Models for Task-Oriented Dialogue Systems](https://arxiv.org/abs/1907.05774) |
 ||T5|||| :heavy_check_mark: ||| [Exploring the Limits of Transfer Learning with a Unified Text-to-Text Transformer](https://arxiv.org/abs/1910.10683) |
 ||EfficientNet| :heavy_check_mark: |||||| [EfficientNet: Rethinking Model Scaling for Convolutional Neural Networks](https://arxiv.org/abs/1905.11946) |
+||EfficientDet|| :heavy_check_mark: ||||| [EfficientDet: Scalable and Efficient Object Detection](https://arxiv.org/abs/1911.09070) |
 |2020|GPT-3|||| :heavy_check_mark: ||| [Language Models are Few-Shot Learners](https://arxiv.org/abs/2005.14165) |
 ||YOLOv4|| :heavy_check_mark: ||||| [YOLOv4: Optimal Speed and Accuracy of Object Detection](https://arxiv.org/abs/2004.10934) |
+||DETR|| :heavy_check_mark: ||||| [End-to-End Object Detection with Transformers](https://arxiv.org/abs/2005.12872) |
+||DRN|| :heavy_check_mark: ||||| [Dynamic Refinement Network for Oriented and Densely Packed Object Detection](https://arxiv.org/abs/2005.09973) |
+||Beta R-CNN|| :heavy_check_mark: ||||| [Beta R-CNN: Looking into Pedestrian Detection from Another Perspective](https://papers.nips.cc/paper/2020/file/e6b4b2a746ed40e1af829d1fa82daa10-Paper.pdf) |
 |2021|DALL-E|||| :heavy_check_mark: || :heavy_check_mark: | [Zero-Shot Text-to-Image Generation](https://arxiv.org/abs/2102.12092) |
 ||EfficientNetV2| :heavy_check_mark: |||||| [EfficientNetV2: Smaller Models and Faster Training](https://arxiv.org/abs/2104.00298) |
-
+||Swin Transformer|| :heavy_check_mark: | :heavy_check_mark: |||| [Swin Transformer: Hierarchical Vision Transformer using Shifted Windows](https://arxiv.org/abs/2103.14030) |
+||UniverseNet|| :heavy_check_mark: ||||| [USB: Universal-Scale Object Detection Benchmark](https://arxiv.org/abs/2103.14027) |
 
 # 参考
 
@@ -80,3 +86,6 @@
 * [What do we learn from region based object detectors (Faster R-CNN, R-FCN, FPN)?](https://jonathan-hui.medium.com/what-do-we-learn-from-region-based-object-detectors-faster-r-cnn-r-fcn-fpn-7e354377a7c9)
 * [【物体検出手法の歴史 : YOLOの紹介】](https://qiita.com/cv_carnavi/items/68dcda71e90321574a2b)
 * [SSD:Single Shot Multibox Detector](https://qiita.com/de0ta/items/1ae60878c0e177fc7a3a)
+* [Transformerを採用した最新の物体検出手法「DETR」](https://club.informatix.co.jp/?p=1265)
+* [密集と任意方向に強い物体検出手法登場！](https://ai-scholar.tech/articles/object-detection/dynamic_refinement)
+* [最新最強の物体検出技術M2Det](https://qiita.com/kzykmyzw/items/1831f70dcade04db2210)
