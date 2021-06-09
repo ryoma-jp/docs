@@ -15,7 +15,7 @@
 |1980|「強いAI・弱いAI」の概念の登場||||||||
 |1986|RNN|||| :heavy_check_mark: | :heavy_check_mark: || [Backpropagation Through Time](http://www.cs.cmu.edu/~bhiksha/courses/deeplearning/Fall.2016/pdfs/Werbos.backprop.pdf) |
 |1991|Python||||||||
-|1995|LSTM|||| :heavy_check_mark: | :heavy_check_mark: || [LSTM](https://arxiv.org/pdf/1503.04069.pdf)|
+|1997|LSTM|||| :heavy_check_mark: | :heavy_check_mark: || [LONG SHORT-TERM MEMORY](https://www.bioinf.jku.at/publications/older/2604.pdf)|
 |1998|LeNet| :heavy_check_mark: |||||| [Gradient-Based Learning Applied to Document Recognition](http://yann.lecun.com/exdb/publis/pdf/lecun-98.pdf) |
 |2006|積層オートエンコーダ|||||| :heavy_check_mark: ||
 |2012|AlexNet| :heavy_check_mark: |||||| [ImageNet Classification with Deep Convolutional Neural Networks](https://papers.nips.cc/paper/2012/file/c399862d3b9d6b76c8436e924a68c45b-Paper.pdf) |
