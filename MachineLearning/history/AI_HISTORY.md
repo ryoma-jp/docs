@@ -40,6 +40,7 @@
 ||Transformer|||| :heavy_check_mark: | :heavy_check_mark: || [Attention Is All You Need](https://papers.nips.cc/paper/2017/file/3f5ee243547dee91fbd053c1c4a845aa-Paper.pdf) |
 ||Mask R-CNN|| :heavy_check_mark: | :heavy_check_mark: |||| [Mask R-CNN](https://arxiv.org/abs/1703.06870) |
 |2018|MobileNet(v2)| :heavy_check_mark: |||||| [MobileNetV2](https://arxiv.org/pdf/1801.04381v3.pdf) |
+||GPT-1|||| :heavy_check_mark: ||| [Improving Language Understanding by Generative Pre-Training](https://s3-us-west-2.amazonaws.com/openai-assets/research-covers/language-unsupervised/language_understanding_paper.pdf) |
 ||BERT|||| :heavy_check_mark: ||| [BERT: Pre-training of Deep Bidirectional Transformers for Language Understanding](https://arxiv.org/abs/1810.04805) |
 ||YOLOv3|| :heavy_check_mark: ||||| [YOLOv3: An Incremental Improvement](https://arxiv.org/abs/1804.02767) |
 ||M2Det|| :heavy_check_mark: ||||| [A Single-Shot Object Detector based on Multi-Level Feature Pyramid Network](https://arxiv.org/abs/1811.04533) |
