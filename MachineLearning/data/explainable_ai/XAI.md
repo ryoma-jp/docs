@@ -85,7 +85,7 @@
 |Counterfactual Prototypes (CF-Proto)|対象となるクラスに最も近いクラスに属するプロトタイプとの違いを示すために、カウンターファクチャルの概念を使用する手法であり、モデルの決定論的および統計的な予測解釈を提供することができます。|
 |Gradient-based Explanations for Reinforcement Learning (G-REX)|強化学習におけるQ値関数の出力を説明するために、Gradient REverse eXplanationという手法を用いたモデル解釈手法です。この手法は、各状態におけるQ値関数の出力を最も影響を与えた入力状態を特定するために、状態空間内での勾配の逆方向に探索します。|
 |Layer-wise Relevance Propagation-Shapley Sampling (LRP-SS)|ニューラルネットワークの入力特徴量の重要度を決定するための手法であり、レイヤーワイズ・リレバンス・プロパゲーション（LRP）とシャプリー値サンプリングを組み合わせて使用します。LRPは、モデルの出力に対する各入力の寄与を再帰的に計算することで、各入力の重要度を決定します。一方、シャプリー値サンプリングは、入力の部分集合に対する予測値の変化量を計算し、各特徴量の重要度を導出します。LRP-SSは、これら2つの手法を組み合わせることで、ニューラルネットワークの入力特徴量の重要度を効率的に推定します。|
-
+|Parameter-Space Saliency Maps for Explainability|モデル内のパラメータの重要性を定量化することで、モデルの予測に対する説明可能性を提供します。この手法は、特にディープラーニングモデルで有用であり、重要な特徴を識別するのに役立ちます。同様に、重要なパラメータを特定するために、他の手法としては、Gradient-weighted Class Activation Mapping (Grad-CAM)やIntegrated Gradientsなどがあります。|
 
 
 
