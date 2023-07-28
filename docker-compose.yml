@@ -1,0 +1,8 @@
+services:
+  tex:
+    build: "./docker"
+    tty: true
+    volumes:
+      - type: bind
+        source: "."
+        target: "/work"
