@@ -1,0 +1,14 @@
+2013年のILSVRC優勝モデルで図\ref{arch_zfnet}に示す構造を持つ \cite{arxiv_zfnet}．下記特徴を持つ．
+
+\begin{itemize}
+	\item Alex Netに対して，第一層目のカーネルサイズを11x11から7x7に変更することで，高周波及び低周波の情報量を抑制
+	\item Alex Netに対して，第一層目のストライドを4から2に変更することで，第二層目に生じるエイリアシングを削減
+\end{itemize}
+
+\begin{figure} [H]
+	\begin{center}
+		\includegraphics[clip, height=6cm, bb=-20 0 675 219]{data/figure/arch_zfnet.png}
+		\caption{ZF Netアーキテクチャ}
+		\label{arch_zfnet}
+	\end{center}
+\end{figure}

@@ -25,7 +25,7 @@ $ docker-compose up -d
 
 ```
 $ docker-compose exec --user $UID tex bash
-$ cd <project directory>/
+$ cd /work/<project directory>/
 $ uplatex <tex file>
 $ dvipdfmx <dvi file>
 ```

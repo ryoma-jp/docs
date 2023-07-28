@@ -1,0 +1,47 @@
+訓練時とテスト時で入力（共変量）の分布が異なる状況は「共変量シフト」と呼ばれ，このような場合は良い学習結果が得られない．共変量シフト下においては，忘却型の学習アルゴリズムやパラメータ学習法，モデル選択法等が用いられる\cite{cov_shift}が，Deep Learningにおいては，学習過程でパラメータ更新により各層のActivationの分布が変わる「内部共変量シフト(Internal Covariate Shift)」と呼ばれる問題がある\cite{bn_abs} \cite{bn_google}．
+
+Deep Learningは画像，音声など様々な分野で急速な技術進化をもたらした．Deep Networkの学習方法として確率的勾配降下法(Stochastic gradient descent ; SGD)が効果的であることが知られている\cite{sgd_overview}．SGDの派生として，Momentum，AdaGrad，RMSprop，Adam，AdaBound，RAdamなどがある．SGDはNetworkのパラメータ$\Theta$を，lossを最小化するように最適化する．
+
+\begin{equation}
+	\Theta = {\rm arg}\,\underset{\Theta}{\rm min}\frac{1}{N}\sum_{i=1}^{N}l({\rm x}_i, \Theta)
+\end{equation}
+
+${\rm x}_{1...N}$はデータ数$N$サンプルの学習データセットで，SGDでの学習ステップは$m$サンプルのミニバッチ${\rm x}_{1...m}$に対して行う．ミニバッチは，パラメータについての損失関数の勾配近似に使用され，式(\ref{approximate_gradient})で導出する．
+
+\begin{equation}
+\label{approximate_gradient}
+	\frac{1}{m}\frac{\partial l({\rm x}_i, \Theta)}{\partial \Theta}
+\end{equation}
+
+SGDでは，学習率をはじめとするハイパーパラメータや，モデルパラメータの初期値の調整が重要である．各層の入力が一つ前の層のモデルパラメータの影響を受け，この影響がネットワークが深いほど大きくなるため，学習が複雑化する．学習によってモデルパラメータが更新され，各層の入力分布が変わり学習の系が変わることで，内部共変量シフトが引き起こされる．この内部共変量シフトを軽減することで学習を安定化する手法の一つがBatch Normalizationである．
+
+ネットワークの一部を切り出して，式(\ref{loss_part_of_network})の損失関数を考える．
+
+\begin{equation}
+\label{loss_part_of_network}
+	l = F_2(F_1(u, \Theta_1), \Theta_2)
+\end{equation}
+
+$F_1，F_2$は任意の変換関数，$\Theta_1，\Theta_2$は損失$l$の最小化により学習されるパラメータである．$\Theta_2$の学習は，入力を${\rm x} = F_1(u, \Theta_1)$とおき，
+
+\begin{equation}
+	l = F_2({\rm x}, \Theta_2)
+\end{equation}
+
+とすると，パラメータ$\Theta_2$の更新
+
+\begin{equation}
+	\Theta_2 \leftarrow \Theta_2 - \frac{\alpha}{m}\sum_{i=1}^{m}\frac{\partial F_2({\rm x}_i, \Theta_2)}{\partial \Theta_2}
+\end{equation}
+
+は，入力${\rm x}$の独立したネットワーク$F_2$と等価である．したがって，学習効果を高める入力分布の性質は，学習データとテストデータで同じ分布を持たせることと同様に，サブネットワークの学習に対して有効である．つまり，学習時間経過によらず${\rm x}$の分布を一定に保つことは有効であり，$\Theta_2$の再調整を不要とすることができる．
+
+そこで，各学習ステップでActivationの白色化を行うことを考える．学習後のバイアス$b$を加算し，学習データに対して計算されたActivationの平均で減算した結果で正規化する入力$u$を持つ層は$\hat{x}=x-E[x]$で示される．ここで，$x=u+b，E[x]=\frac{1}{N}\sum_{i=1}^{N}x_i$である．勾配降下ステップが$E[x]$の$b$についての依存がないとき，$b$の更新は$b \leftarrow b+\Delta b$，$\Delta b \propto -\partial l / \partial \hat[x]$で示され，$u+(b+\Delta b)-E[u+(b+\Delta b)]=u+b-E[u+b]$となる．
+
+$d$次元の入力$x=(x^(1) ... x^(d))$を持つネットワークの層について
+
+
+Batch NormalizationではActivationの出力$x$とペアのパラメータ$\gamma, \beta$を用いて，
+\begin{equation}
+	y = \gamma x + \beta
+\end{equation}
