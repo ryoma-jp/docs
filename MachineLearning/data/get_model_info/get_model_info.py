@@ -92,6 +92,27 @@ def get_model_info(model):
 
             layer_feature.append(math.prod(output_shape))
             layer_feature_shape.append(output_shape)
+        elif (isinstance(layer, tf.keras.layers.DepthwiseConv2D)):
+            input_shape = layer.input_shape[1:]
+            output_shape = layer.output_shape[1:]
+
+            layer_ops.append(layer.__class__.__name__)
+
+            layer_config = layer.get_config()
+            kernel_size = layer_config["kernel_size"]
+
+            layer_flops.append((kernel_size[0] * kernel_size[1]) \
+                * (output_shape[0] * output_shape[1]) \
+                * output_shape[2])
+            
+            weights = [math.prod(_w.shape) for _w in layer.weights]
+            layer_weights.append(sum(weights))
+
+            weights_shape = [tuple(_w.shape) for _w in layer.weights]
+            layer_weights_shape.append(weights_shape)
+
+            layer_feature.append(math.prod(output_shape))
+            layer_feature_shape.append(output_shape)
         else:
             print(f"unsupported operator: {layer.__class__.__name__}")
 
@@ -116,13 +137,79 @@ def main():
     # --- Create output directory ---
     os.makedirs(args.output_dir, exist_ok=True)
 
-    # --- Get model information ---
+    # --- Get Xception model information ---
     df_model_info = get_model_info(tf.keras.applications.Xception())
+    csv_name = Path(args.output_dir, "xception.csv")
+    df_model_info.to_csv(csv_name, index=False)
 
-    # --- Save model information ---
-    print(df_model_info)
+    # --- Get VGG16 model information ---
+    df_model_info = get_model_info(tf.keras.applications.VGG16())
+    csv_name = Path(args.output_dir, "vgg16.csv")
+    df_model_info.to_csv(csv_name, index=False)
 
-    csv_name = Path(args.output_dir, "model_info.csv")
+    # --- Get VGG19 model information ---
+    df_model_info = get_model_info(tf.keras.applications.VGG19())
+    csv_name = Path(args.output_dir, "vgg19.csv")
+    df_model_info.to_csv(csv_name, index=False)
+
+    # --- Get ResNet50 model information ---
+    df_model_info = get_model_info(tf.keras.applications.ResNet50())
+    csv_name = Path(args.output_dir, "resnet50.csv")
+    df_model_info.to_csv(csv_name, index=False)
+
+    # --- Get ResNet101 model information ---
+    df_model_info = get_model_info(tf.keras.applications.ResNet101())
+    csv_name = Path(args.output_dir, "resnet101.csv")
+    df_model_info.to_csv(csv_name, index=False)
+
+    # --- Get ResNet152 model information ---
+    df_model_info = get_model_info(tf.keras.applications.ResNet152())
+    csv_name = Path(args.output_dir, "resnet152.csv")
+    df_model_info.to_csv(csv_name, index=False)
+
+    # --- Get InceptionV3 model information ---
+    df_model_info = get_model_info(tf.keras.applications.InceptionV3())
+    csv_name = Path(args.output_dir, "inception_v3.csv")
+    df_model_info.to_csv(csv_name, index=False)
+
+    # --- Get InceptionResNetV2 model information ---
+    df_model_info = get_model_info(tf.keras.applications.InceptionResNetV2())
+    csv_name = Path(args.output_dir, "inception_resnet_v2.csv")
+    df_model_info.to_csv(csv_name, index=False)
+
+    # --- Get MobileNet model information ---
+    df_model_info = get_model_info(tf.keras.applications.MobileNet())
+    csv_name = Path(args.output_dir, "mobilenet.csv")
+    df_model_info.to_csv(csv_name, index=False)
+
+    # --- Get MobileNetV2 model information ---
+    df_model_info = get_model_info(tf.keras.applications.MobileNetV2())
+    csv_name = Path(args.output_dir, "mobilenet_v2.csv")
+    df_model_info.to_csv(csv_name, index=False)
+
+    # --- Get DenseNet121 model information ---
+    df_model_info = get_model_info(tf.keras.applications.DenseNet121())
+    csv_name = Path(args.output_dir, "densenet121.csv")
+    df_model_info.to_csv(csv_name, index=False)
+
+    # --- Get DenseNet169 model information ---
+    df_model_info = get_model_info(tf.keras.applications.DenseNet169())
+    csv_name = Path(args.output_dir, "densenet169.csv")
+    df_model_info.to_csv(csv_name, index=False)
+
+    # --- Get DenseNet201 model information ---
+    df_model_info = get_model_info(tf.keras.applications.DenseNet201())
+    csv_name = Path(args.output_dir, "densenet201.csv")
+    df_model_info.to_csv(csv_name, index=False)
+
+    # --- Get NASNetMobile model information ---
+    df_model_info = get_model_info(tf.keras.applications.NASNetMobile())
+    csv_name = Path(args.output_dir, "nasnet_mobile.csv")
+    df_model_info.to_csv(csv_name, index=False)
+
+    # --- Get NASNetLarge model information ---
+    df_model_info = get_model_info(tf.keras.applications.NASNetLarge())
+    csv_name = Path(args.output_dir, "nasnet_large.csv")
     df_model_info.to_csv(csv_name, index=False)
 
 # --- main routine ---
