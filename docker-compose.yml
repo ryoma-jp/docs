@@ -6,3 +6,10 @@ services:
       - type: bind
         source: "."
         target: "/work"
+  tex_for_ml:
+    build: "./MachineLearning/docker"
+    tty: true
+    volumes:
+      - type: bind
+        source: "."
+        target: "/work"
