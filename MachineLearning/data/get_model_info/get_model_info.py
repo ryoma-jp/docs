@@ -319,6 +319,31 @@ def main():
     csv_name = Path(args.output_dir, "efficientnet_v2_l.csv")
     df_model_info.to_csv(csv_name, index=False)
 
+    # --- Get ConvNeXtTiny model information ---
+    df_model_info = get_model_info(tf.keras.applications.ConvNeXtTiny())
+    csv_name = Path(args.output_dir, "convnext_tiny.csv")
+    df_model_info.to_csv(csv_name, index=False)
+
+    # --- Get ConvNeXtSmall model information ---
+    df_model_info = get_model_info(tf.keras.applications.ConvNeXtSmall())
+    csv_name = Path(args.output_dir, "convnext_small.csv")
+    df_model_info.to_csv(csv_name, index=False)
+
+    # --- Get ConvNeXtBase model information ---
+    df_model_info = get_model_info(tf.keras.applications.ConvNeXtBase())
+    csv_name = Path(args.output_dir, "convnext_base.csv")
+    df_model_info.to_csv(csv_name, index=False)
+
+    # --- Get ConvNeXtLarge model information ---
+    df_model_info = get_model_info(tf.keras.applications.ConvNeXtLarge())
+    csv_name = Path(args.output_dir, "convnext_large.csv")
+    df_model_info.to_csv(csv_name, index=False)
+
+    # --- Get ConvNeXtXLarge model information ---
+    df_model_info = get_model_info(tf.keras.applications.ConvNeXtXLarge())
+    csv_name = Path(args.output_dir, "convnext_xlarge.csv")
+    df_model_info.to_csv(csv_name, index=False)
+
 # --- main routine ---
 if __name__=="__main__":
     main()
