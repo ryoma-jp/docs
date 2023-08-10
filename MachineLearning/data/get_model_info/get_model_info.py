@@ -52,6 +52,46 @@ def get_model_info(model):
 
             layer_feature.append(math.prod(output_shape))
             layer_feature_shape.append(output_shape)
+        elif (isinstance(layer, tf.keras.layers.SeparableConv2D)):
+            input_shape = layer.input_shape[1:]
+            output_shape = layer.output_shape[1:]
+
+            layer_ops.append(layer.__class__.__name__)
+
+            layer_config = layer.get_config()
+            kernel_size = layer_config["kernel_size"]
+
+            layer_flops.append((kernel_size[0] * kernel_size[1] * input_shape[2]) \
+                * (output_shape[0] * output_shape[1]) \
+                + input_shape[2] \
+                * (output_shape[0] * output_shape[1]) \
+                * output_shape[2]
+            )
+
+            weights = [math.prod(_w.shape) for _w in layer.weights]
+            layer_weights.append(sum(weights))
+
+            weights_shape = [tuple(_w.shape) for _w in layer.weights]
+            layer_weights_shape.append(weights_shape)
+
+            layer_feature.append(math.prod(output_shape))
+            layer_feature_shape.append(output_shape)
+        elif (isinstance(layer, tf.keras.layers.Dense)):
+            input_shape = layer.input_shape[1:]
+            output_shape = layer.output_shape[1:]
+
+            layer_ops.append(layer.__class__.__name__)
+
+            layer_flops.append(input_shape[0] * output_shape[0])
+
+            weights = [math.prod(_w.shape) for _w in layer.weights]
+            layer_weights.append(sum(weights))
+
+            weights_shape = [tuple(_w.shape) for _w in layer.weights]
+            layer_weights_shape.append(weights_shape)
+
+            layer_feature.append(math.prod(output_shape))
+            layer_feature_shape.append(output_shape)
         else:
             print(f"unsupported operator: {layer.__class__.__name__}")
 
