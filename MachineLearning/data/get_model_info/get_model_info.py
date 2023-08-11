@@ -169,180 +169,59 @@ def main():
     # --- Create output directory ---
     os.makedirs(args.output_dir, exist_ok=True)
 
-    # --- Get Xception model information ---
-    df_model_info = get_model_info(tf.keras.applications.Xception())
-    csv_name = Path(args.output_dir, "xception.csv")
-    df_model_info.to_csv(csv_name, index=False)
+    # --- Initialize models information ---
+    models_info_columns = ["Model Name", "FLOPs", "Weights", "Features"]
+    df_models_info = pd.DataFrame()
+    supported_models = [
+        ["Xception", tf.keras.applications.Xception, "xception.csv"],
+        ["VGG16", tf.keras.applications.VGG16, "vgg16.csv"],
+        ["VGG19", tf.keras.applications.VGG19, "vgg19.csv"],
+        ["ResNet50", tf.keras.applications.ResNet50, "resnet50.csv"],
+        ["ResNet101", tf.keras.applications.ResNet101, "resnet101.csv"],
+        ["ResNet152", tf.keras.applications.ResNet152, "resnet152.csv"],
+        ["InceptionV3", tf.keras.applications.InceptionV3, "inception_v3.csv"],
+        ["InceptionResNetV2", tf.keras.applications.InceptionResNetV2, "inception_resnet_v2.csv"],
+        ["MobileNet", tf.keras.applications.MobileNet, "mobilenet.csv"],
+        ["MobileNetV2", tf.keras.applications.MobileNetV2, "mobilenet_v2.csv"],
+        ["DenseNet121", tf.keras.applications.DenseNet121, "densenet121.csv"],
+        ["DenseNet169", tf.keras.applications.DenseNet169, "densenet169.csv"],
+        ["DenseNet201", tf.keras.applications.DenseNet201, "densenet201.csv"],
+        ["NASNetMobile", tf.keras.applications.NASNetMobile, "nasnet_mobile.csv"],
+        ["NASNetLarge", tf.keras.applications.NASNetLarge, "nasnet_large.csv"],
+        ["EfficientNetB0", tf.keras.applications.EfficientNetB0, "efficientnet_b0.csv"],
+        ["EfficientNetB1", tf.keras.applications.EfficientNetB1, "efficientnet_b1.csv"],
+        ["EfficientNetB2", tf.keras.applications.EfficientNetB2, "efficientnet_b2.csv"],
+        ["EfficientNetB3", tf.keras.applications.EfficientNetB3, "efficientnet_b3.csv"],
+        ["EfficientNetB4", tf.keras.applications.EfficientNetB4, "efficientnet_b4.csv"],
+        ["EfficientNetB5", tf.keras.applications.EfficientNetB5, "efficientnet_b5.csv"],
+        ["EfficientNetB6", tf.keras.applications.EfficientNetB6, "efficientnet_b6.csv"],
+        ["EfficientNetB7", tf.keras.applications.EfficientNetB7, "efficientnet_b7.csv"],
+        ["EfficientNetV2B0", tf.keras.applications.EfficientNetV2B0, "efficientnet_v2_b0.csv"],
+        ["EfficientNetV2B1", tf.keras.applications.EfficientNetV2B1, "efficientnet_v2_b1.csv"],
+        ["EfficientNetV2B2", tf.keras.applications.EfficientNetV2B2, "efficientnet_v2_b2.csv"],
+        ["EfficientNetV2B3", tf.keras.applications.EfficientNetV2B3, "efficientnet_v2_b3.csv"],
+        ["EfficientNetV2S", tf.keras.applications.EfficientNetV2S, "efficientnet_v2_s.csv"],
+        ["EfficientNetV2M", tf.keras.applications.EfficientNetV2M, "efficientnet_v2_m.csv"],
+        ["EfficientNetV2L", tf.keras.applications.EfficientNetV2L, "efficientnet_v2_l.csv"],
+        ["ConvNeXtTiny", tf.keras.applications.ConvNeXtTiny, "convnext_tiny.csv"],
+        ["ConvNeXtSmall", tf.keras.applications.ConvNeXtSmall, "convnext_small.csv"],
+        ["ConvNeXtBase", tf.keras.applications.ConvNeXtBase, "convnext_base.csv"],
+        ["ConvNeXtLarge", tf.keras.applications.ConvNeXtLarge, "convnext_large.csv"],
+        ["ConvNeXtXLarge", tf.keras.applications.ConvNeXtXLarge, "convnext_xlarge.csv"],
+    ]
 
-    # --- Get VGG16 model information ---
-    df_model_info = get_model_info(tf.keras.applications.VGG16())
-    csv_name = Path(args.output_dir, "vgg16.csv")
-    df_model_info.to_csv(csv_name, index=False)
+    # --- Get models information ---
+    for model in supported_models:
+        model_name, model_obj, model_csv = model
+        df_model_info = get_model_info(model_obj())
+        csv_name = Path(args.output_dir, model_csv)
+        df_model_info.to_csv(csv_name, index=False)
 
-    # --- Get VGG19 model information ---
-    df_model_info = get_model_info(tf.keras.applications.VGG19())
-    csv_name = Path(args.output_dir, "vgg19.csv")
-    df_model_info.to_csv(csv_name, index=False)
-
-    # --- Get ResNet50 model information ---
-    df_model_info = get_model_info(tf.keras.applications.ResNet50())
-    csv_name = Path(args.output_dir, "resnet50.csv")
-    df_model_info.to_csv(csv_name, index=False)
-
-    # --- Get ResNet101 model information ---
-    df_model_info = get_model_info(tf.keras.applications.ResNet101())
-    csv_name = Path(args.output_dir, "resnet101.csv")
-    df_model_info.to_csv(csv_name, index=False)
-
-    # --- Get ResNet152 model information ---
-    df_model_info = get_model_info(tf.keras.applications.ResNet152())
-    csv_name = Path(args.output_dir, "resnet152.csv")
-    df_model_info.to_csv(csv_name, index=False)
-
-    # --- Get InceptionV3 model information ---
-    df_model_info = get_model_info(tf.keras.applications.InceptionV3())
-    csv_name = Path(args.output_dir, "inception_v3.csv")
-    df_model_info.to_csv(csv_name, index=False)
-
-    # --- Get InceptionResNetV2 model information ---
-    df_model_info = get_model_info(tf.keras.applications.InceptionResNetV2())
-    csv_name = Path(args.output_dir, "inception_resnet_v2.csv")
-    df_model_info.to_csv(csv_name, index=False)
-
-    # --- Get MobileNet model information ---
-    df_model_info = get_model_info(tf.keras.applications.MobileNet())
-    csv_name = Path(args.output_dir, "mobilenet.csv")
-    df_model_info.to_csv(csv_name, index=False)
-
-    # --- Get MobileNetV2 model information ---
-    df_model_info = get_model_info(tf.keras.applications.MobileNetV2())
-    csv_name = Path(args.output_dir, "mobilenet_v2.csv")
-    df_model_info.to_csv(csv_name, index=False)
-
-    # --- Get DenseNet121 model information ---
-    df_model_info = get_model_info(tf.keras.applications.DenseNet121())
-    csv_name = Path(args.output_dir, "densenet121.csv")
-    df_model_info.to_csv(csv_name, index=False)
-
-    # --- Get DenseNet169 model information ---
-    df_model_info = get_model_info(tf.keras.applications.DenseNet169())
-    csv_name = Path(args.output_dir, "densenet169.csv")
-    df_model_info.to_csv(csv_name, index=False)
-
-    # --- Get DenseNet201 model information ---
-    df_model_info = get_model_info(tf.keras.applications.DenseNet201())
-    csv_name = Path(args.output_dir, "densenet201.csv")
-    df_model_info.to_csv(csv_name, index=False)
-
-    # --- Get NASNetMobile model information ---
-    df_model_info = get_model_info(tf.keras.applications.NASNetMobile())
-    csv_name = Path(args.output_dir, "nasnet_mobile.csv")
-    df_model_info.to_csv(csv_name, index=False)
-
-    # --- Get NASNetLarge model information ---
-    df_model_info = get_model_info(tf.keras.applications.NASNetLarge())
-    csv_name = Path(args.output_dir, "nasnet_large.csv")
-    df_model_info.to_csv(csv_name, index=False)
-
-    # --- Get EfficientNetB0 model information ---
-    df_model_info = get_model_info(tf.keras.applications.EfficientNetB0())
-    csv_name = Path(args.output_dir, "efficientnet_b0.csv")
-    df_model_info.to_csv(csv_name, index=False)
-
-    # --- Get EfficientNetB1 model information ---
-    df_model_info = get_model_info(tf.keras.applications.EfficientNetB1())
-    csv_name = Path(args.output_dir, "efficientnet_b1.csv")
-    df_model_info.to_csv(csv_name, index=False)
-
-    # --- Get EfficientNetB2 model information ---
-    df_model_info = get_model_info(tf.keras.applications.EfficientNetB2())
-    csv_name = Path(args.output_dir, "efficientnet_b2.csv")
-    df_model_info.to_csv(csv_name, index=False)
-
-    # --- Get EfficientNetB3 model information ---
-    df_model_info = get_model_info(tf.keras.applications.EfficientNetB3())
-    csv_name = Path(args.output_dir, "efficientnet_b3.csv")
-    df_model_info.to_csv(csv_name, index=False)
-
-    # --- Get EfficientNetB4 model information ---
-    df_model_info = get_model_info(tf.keras.applications.EfficientNetB4())
-    csv_name = Path(args.output_dir, "efficientnet_b4.csv")
-    df_model_info.to_csv(csv_name, index=False)
-
-    # --- Get EfficientNetB5 model information ---
-    df_model_info = get_model_info(tf.keras.applications.EfficientNetB5())
-    csv_name = Path(args.output_dir, "efficientnet_b5.csv")
-    df_model_info.to_csv(csv_name, index=False)
-
-    # --- Get EfficientNetB6 model information ---
-    df_model_info = get_model_info(tf.keras.applications.EfficientNetB6())
-    csv_name = Path(args.output_dir, "efficientnet_b6.csv")
-    df_model_info.to_csv(csv_name, index=False)
-
-    # --- Get EfficientNetB7 model information ---
-    df_model_info = get_model_info(tf.keras.applications.EfficientNetB7())
-    csv_name = Path(args.output_dir, "efficientnet_b7.csv")
-    df_model_info.to_csv(csv_name, index=False)
-
-    # --- Get EfficientNetV2B0 model information ---
-    df_model_info = get_model_info(tf.keras.applications.EfficientNetV2B0())
-    csv_name = Path(args.output_dir, "efficientnet_v2_b0.csv")
-    df_model_info.to_csv(csv_name, index=False)
-
-    # --- Get EfficientNetV2B1 model information ---
-    df_model_info = get_model_info(tf.keras.applications.EfficientNetV2B1())
-    csv_name = Path(args.output_dir, "efficientnet_v2_b1.csv")
-    df_model_info.to_csv(csv_name, index=False)
-
-    # --- Get EfficientNetV2B2 model information ---
-    df_model_info = get_model_info(tf.keras.applications.EfficientNetV2B2())
-    csv_name = Path(args.output_dir, "efficientnet_v2_b2.csv")
-    df_model_info.to_csv(csv_name, index=False)
-
-    # --- Get EfficientNetV2B3 model information ---
-    df_model_info = get_model_info(tf.keras.applications.EfficientNetV2B3())
-    csv_name = Path(args.output_dir, "efficientnet_v2_b3.csv")
-    df_model_info.to_csv(csv_name, index=False)
-
-    # --- Get EfficientNetV2S model information ---
-    df_model_info = get_model_info(tf.keras.applications.EfficientNetV2S())
-    csv_name = Path(args.output_dir, "efficientnet_v2_s.csv")
-    df_model_info.to_csv(csv_name, index=False)
-
-    # --- Get EfficientNetV2M model information ---
-    df_model_info = get_model_info(tf.keras.applications.EfficientNetV2M())
-    csv_name = Path(args.output_dir, "efficientnet_v2_m.csv")
-    df_model_info.to_csv(csv_name, index=False)
-
-    # --- Get EfficientNetV2L model information ---
-    df_model_info = get_model_info(tf.keras.applications.EfficientNetV2L())
-    csv_name = Path(args.output_dir, "efficientnet_v2_l.csv")
-    df_model_info.to_csv(csv_name, index=False)
-
-    # --- Get ConvNeXtTiny model information ---
-    df_model_info = get_model_info(tf.keras.applications.ConvNeXtTiny())
-    csv_name = Path(args.output_dir, "convnext_tiny.csv")
-    df_model_info.to_csv(csv_name, index=False)
-
-    # --- Get ConvNeXtSmall model information ---
-    df_model_info = get_model_info(tf.keras.applications.ConvNeXtSmall())
-    csv_name = Path(args.output_dir, "convnext_small.csv")
-    df_model_info.to_csv(csv_name, index=False)
-
-    # --- Get ConvNeXtBase model information ---
-    df_model_info = get_model_info(tf.keras.applications.ConvNeXtBase())
-    csv_name = Path(args.output_dir, "convnext_base.csv")
-    df_model_info.to_csv(csv_name, index=False)
-
-    # --- Get ConvNeXtLarge model information ---
-    df_model_info = get_model_info(tf.keras.applications.ConvNeXtLarge())
-    csv_name = Path(args.output_dir, "convnext_large.csv")
-    df_model_info.to_csv(csv_name, index=False)
-
-    # --- Get ConvNeXtXLarge model information ---
-    df_model_info = get_model_info(tf.keras.applications.ConvNeXtXLarge())
-    csv_name = Path(args.output_dir, "convnext_xlarge.csv")
-    df_model_info.to_csv(csv_name, index=False)
+        df_add = pd.DataFrame({"Model Name": [model_name]})
+        df_add = pd.concat([df_add, df_model_info[models_info_columns[1:]].sum().to_frame().T], axis=1)
+        df_models_info = pd.concat([df_models_info, df_add], ignore_index=True)
+    print(df_models_info)
+    df_models_info.to_csv(Path(args.output_dir, "models_info.csv"), index=False)
 
 # --- main routine ---
 if __name__=="__main__":
