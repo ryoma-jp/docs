@@ -4,6 +4,8 @@ import argparse
 import math
 import pandas as pd
 import tensorflow as tf
+import matplotlib.pyplot as plt
+import seaborn as sns
 
 from pathlib import Path
 
@@ -221,7 +223,42 @@ def main():
         df_add = pd.concat([df_add, df_model_info[models_info_columns[1:]].sum().to_frame().T], axis=1)
         df_models_info = pd.concat([df_models_info, df_add], ignore_index=True)
     print(df_models_info)
+
+    # --- Save models information(graph) ---
     df_models_info.to_csv(Path(args.output_dir, "models_info.csv"), index=False)
+    ax = sns.scatterplot(data=df_models_info, x="FLOPs", y="Weights")
+    ax.set_xscale("log")
+    ax.set_yscale("log")
+    ax.set_title("FLOPs vs Weights")
+
+    for i, model_info in df_models_info.iterrows():
+        ax.text(model_info["FLOPs"]+.02, model_info["Weights"], model_info["Model Name"])
+
+    plt.savefig(Path(args.output_dir, "models_info.png"))
+    plt.close()
+
+    # --- Save models information(LaTeX) ---
+    with open(Path(args.output_dir, "models_info.tex"), mode="w", encoding="utf-8") as f:
+        lines = [
+            "\\begin{table}[H]\n",
+            "\t\\caption{FLOPs vs Weights}\n",
+            "\t\\label{table:flops_vs_weights}\n",
+            "\t\\centering\n",
+            "\t\\begin{tabular}{lll}\n",
+            "\t\t\\hline\n",
+            "\t\tModel Name & FLOPs & Weights \\\\ \n",
+            "\t\t\\hline \\hline \n",
+        ]
+
+        lines += [f"\t\t{model_info['Model Name']} & {model_info['FLOPs']} & {model_info['Weights']} \\\\ \n" for i, model_info in df_models_info.iterrows()]
+        
+        lines += [
+            "\t\t\\hline\n",
+            "\t\\end{tabular}\n",
+            "\\end{table}\n",
+        ]
+
+        f.writelines(lines)
 
 # --- main routine ---
 if __name__=="__main__":
