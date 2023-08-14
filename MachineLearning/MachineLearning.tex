@@ -7,7 +7,9 @@
 \usepackage{ascmac}
 \usepackage{listings}
 %\usepackage{plistings}
-\usepackage[hyphens]{url}
+\usepackage[hyphens]{url}  % URLをいい感じに改行する
+\usepackage[dvipdfmx]{hyperref}  % 改行されたURL部分もリンクに含められるようにする
+\usepackage{pxjahyper}  % PDFのしおり部分の文字化けを修正する
 %
 \setlength{\textwidth}{\fullwidth}
 \setlength{\textheight}{40\baselineskip}
@@ -34,10 +36,10 @@
 %
 %
 
-\section{はじめに}
+\section{はじめに}\label{introduction}
 \input subsections/MachineLearning_Indroduction.tex
 
-\section{Deep Learning}
+\section{Deep Learning}\label{deeplearning}
 \input subsections/MachineLearning_DeepLearning.tex
 
 \section{Section}
@@ -47,7 +49,7 @@ T.B.D
 
 \appendix
 
-\section{エッジAI関連の市場規模・動向・関連企業}
+\section{エッジAI関連の市場規模・動向・関連企業}\label{appendix_market}
 \input subsections/MachineLearning_Appendix_Market.tex
 
 %

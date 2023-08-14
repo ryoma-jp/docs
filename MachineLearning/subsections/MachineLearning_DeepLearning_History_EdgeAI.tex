@@ -1,6 +1,11 @@
 DeepLearning技術の発展に伴い，車載や産業，スマートホームといった多くの分野への活用が期待されている．
 特に，エッジデバイス上で処理するエッジAIは，2023年現在，産業分野を中心に活用が進み，車載分野における自動運転は2030年以降に活用が広まるものと予想されている．
 
+図\ref{edge_ai_market}はエッジAI関連市場の予測を示すものである．
+2035年頃まではスマートカメラやスマートホームなど産業・民生分野を中心に成長し，2030年ごろから自動運転が実用化されることが予測されている．
+
+なお本グラフは，Appendix \ref{appendix_market}に示す数値をもとに，年平均成長率(CAGR)で各年の数値を補完したものである．
+
 \begin{figure} [H]
 	\begin{center}
 		\includegraphics[clip, height=15cm, bb=-100 0 957 911]{data/figure/edge_ai_market.png}
@@ -9,10 +14,120 @@ DeepLearning技術の発展に伴い，車載や産業，スマートホーム�
 	\end{center}
 \end{figure}
 
+AI処理をエッジ化することにより，下記のような効果が期待できる．
 
+\begin{itemize}
+	\item リアルタイム性・低遅延
+	\begin{itemize}
+		\item ネットワーク通信を介さないデータ処理で即時に応答
+	\end{itemize}
+	\item 情報漏洩リスクの低減
+	\begin{itemize}
+		\item クラウド利用がない為，機密情報の漏洩リスクを低減
+	\end{itemize}
+	\item 通信負荷と通信コストの低減
+	\begin{itemize}
+		\item データ処理がエッジで完結することにより，ネットワークの通信負荷とクラウド利用コストを低減
+	\end{itemize}
+	\item 低消費電力
+	\begin{itemize}
+		\item 消費電力が低いエッジデバイスでの処理で，電力コストと環境負荷を低減
+	\end{itemize}
+	\item デバイスの軽薄短小化
+	\begin{itemize}
+		\item 小さな装置への実装や，設置容易性を向上
+	\end{itemize}
+\end{itemize}
 
+実際にカメラにAIを組み込んだ障害物検知や人流分析，製造装置にAIを組み込んだ異常検知や機器制御など，実証実験や運用が進んでいる．
+AIの導入が進み始めた中で，顔認証をはじめとし，人種的・性別的などの側面から倫理問題が顕在化してきた．
 
-非常に多くの分野で活用されるようになったDeepLearning技術だが，モデルの性能向上に伴い計算に必要な資源も増加している．
+実際に発生したAIの倫理問題は，例えば，
+\begin{itemize}
+	\item Googleフォトの人種差別：画像認識で黒人をゴリラと誤判定
+	\item Amazonの人材採用AIによる性差別：男性の評価を高く評価
+	\item リクナビによる内定辞退率の販売：AIを用いて算出した学生の内定辞退率のデータを企業に販売
+	\item 東京2020オリンピック選手村での自動運転事故：トヨタ「eパレット」が自動運転中に選手と接触
+	\item フェイクニュースの多発：DeepFakeによる嘘情報の拡散
+\end{itemize}
+が挙げられる．
+
+AIが識別・判断した根拠を説明できず，実害が生じたにも関わらず責任の所在が曖昧になる場合も多い．
+これらの倫理問題を受け，政府や企業は倫理問題への対策を進めている．
+%DeepLearningでは複雑なアーキテクチャのモデルを学習データを用いて学習することによってAIを獲得する為，ブラックボックス化されやすかったりデータの偏りによって判断にバイアスが生じる場合もある．
+
+\begin{itemize}
+	\item 日本政府が規定したAI社会原則 (\url{https://www8.cao.go.jp/cstp/aigensoku.pdf})
+	\begin{itemize}
+		\item 人間中心の原則
+		\item 教育・リテラシーの原則
+		\item プライバシー確保の原則
+		\item セキュリティ確保の原則
+		\item 公正競争確保の原則
+		\item 公平性・説明責任及び透明性の原則
+		\item イノベーションの原則
+	\end{itemize}
+	\item AI倫理の7原則(Google, \url{https://ai.google/responsibility/principles/})
+	\begin{itemize}
+		\item Be socially beneficial (社会への有益性)
+		\item Avoid creating or reinforcing unfair bias (不公平なバイアスの防止)
+		\item Be built and tested for safety (安全性確保のための開発)
+		\item Be accountable to people (人々への説明責任)
+		\item Incorporate privacy design principles (プライバシーの設計原則の組み込み)
+		\item Uphold high standards of scientific excellence (科学手卓越性の高位平準化)
+		\item Be made available for uses that accord with these principles (これらの原則に沿ったユーザへの技術提供)
+	\end{itemize}
+	\item AI倫理原則(パナソニック，\url{https://monoist.itmedia.co.jp/mn/articles/2208/30/news073.html})
+	\begin{itemize}
+		\item 「より良いくらしとより良い社会」を実現すること
+		\item 安全のための設計、開発、検証を行うこと
+		\item 人権と公平性を尊重すること
+		\item 透明性と説明責任を重視すること
+		\item お客様のプライバシーを保護すること
+	\end{itemize}
+	\item 責任あるAI：AI倫理とガバナンス(accenture, \url{https://www.accenture.com/jp-ja/services/applied-intelligence/ai-ethics-governance})
+	\begin{itemize}
+		\item 意図しないバイアスの最小化
+		\item AIの透明性を確保する
+		\item 従業員に機会を与える
+		\item データプライバシーとセキュリティを守る
+		\item 顧客と市場に利益をもたらす
+	\end{itemize}
+	\item HPEにおけるAIの倫理と原則(HeulettPackard, \url{https://www.hpe.com/jp/ja/solutions/artificial-intelligence/ethics.html})
+	\begin{itemize}
+		\item AIのプライバシー対応のセキュリティ
+		\item AIの人間重視の原則
+		\item AIのインクルーシブ原則
+		\item AIの頑強な原則
+		\item 責任あるAI
+	\end{itemize}
+	\item AI倫理ガイドライン(AWL, \url{https://awl.co.jp/ai-ethics-guidelines/})
+	\begin{itemize}
+		\item 人間中心のAI社会の実現
+		\item 法令遵守
+		\item AIの適正な利活用
+		\item 安全性とセキュリティの確保
+		\item プライバシーへの配慮
+		\item 公平性の尊重・非差別
+		\item 透明性等
+		\item AIの発展と人材育成
+	\end{itemize}
+	\item OKIグループAI原則(OKI, \url{https://www.oki.com/jp/technology/ai/principle.html})
+	\begin{itemize}
+		\item 人権の尊重
+		\item 説明と透明性
+		\item 対話と協調
+		\item 安全およびデータの取扱い
+		\item 人材育成
+	\end{itemize}
+\end{itemize}
+
+以上のことから，非常に多くの分野で活用されるようになったDeepLearning技術だが，エッジへの組み込みに加え倫理問題への対策も必要である．
+
+\subsubsection{エッジへのAI実装課題}
+
+モデルの性能向上に伴い計算に必要な資源も増加している．
+計算機の資源，特にGPUやスーパーコンピュータの性能も向上しているが，スマートフォンやスマートカメラなど計算資源が限られているエッジデバイスでは，実行可能なモデルも制限され，AIの小型化と性能維持が課題である．
 
 \begin{table}[H]
 	\caption{FLOPs vs Weights}
@@ -69,8 +184,12 @@ DeepLearning技術の発展に伴い，車載や産業，スマートホーム�
 	\end{center}
 \end{figure}
 
+\subsubsection{AI倫理問題対策の課題}
 
-計算機の資源，特にGPUやスーパーコンピュータの性能も向上しているが，スマートフォンやスマートカメラなど計算資源が限られているエッジデバイスでは，実行可能なモデルも制限される．
+AIの社会実装において，AIの判断に対して責任を持つことが基本となる．
+しかし，AIはブラックボックス的である為，判断根拠を人が解釈することが困難である．
+
+AIを活用する範囲を人が解釈可能な範囲に限定したり，説明可能AI(Explainable AI)技術を活用したりするなどの対策が挙げられる．
 
 % --- T.B.D ---
 %市場規模
